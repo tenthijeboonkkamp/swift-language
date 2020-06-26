@@ -8,15 +8,15 @@
 
 import Foundation
 
-public func string(for language:Languages.Language, dutch:String? = nil, english:String? = nil)->String {
+public func string(if condition:@autoclosure ()->Bool = true, for language:Languages.Language, dutch:String? = nil, english:String? = nil)->String {
     switch language {
-    case .english: return english ?? ""
-    case .dutch: return dutch ?? ""
+    case .english: return condition() ? english ?? "" : ""
+    case .dutch: return condition() ? dutch ?? "" : ""
     default: fatalError()
     }
 }
 
-public func string(_ string:String, if condition:@autoclosure ()->Bool)->String? { condition() ? string : nil }
+//public func string(_ string:String, if condition:@autoclosure ()->Bool)->String? { condition() ? string : nil }
 
 public func string(dutch:String? = nil, english:String? = nil)->(Language)->String {
     return { language in
@@ -38,4 +38,8 @@ public func string<A>(from type: A, keyPath: KeyPath<A, Language>, dutch:String?
     }
 }
 
-
+extension Languages.Language {
+    public func callAsFunction(if condition:@autoclosure ()->Bool = true, dutch:String?, english:String?)->String {
+        Languages.string(if: condition(), for: self, dutch: dutch, english: english)
+    }
+}
