@@ -23,8 +23,14 @@ public func string(dutch:String? = nil, english:String? = nil)->(Language)->Stri
         switch language {
         case .english: return english ?? ""
         case .dutch: return dutch ?? ""
-        default: fatalError()
         }
+    }
+}
+
+public func value<A>(for language: Languages.Language, dutch: A, english: A)->A {
+    switch language {
+    case .dutch: return dutch
+    case .english: return english
     }
 }
 
@@ -34,7 +40,6 @@ public func string<A>(from type: A, keyPath: KeyPath<A, Language>, dutch:String?
     switch language {
     case .english: return english ?? ""
     case .dutch: return dutch ?? ""
-    default: fatalError()
     }
 }
 
