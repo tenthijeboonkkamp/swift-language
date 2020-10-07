@@ -12,7 +12,6 @@ public func string(if condition:@autoclosure ()->Bool = true, for language:Langu
     switch language {
     case .english: return condition() ? english ?? "" : ""
     case .dutch: return condition() ? dutch ?? "" : ""
-    default: fatalError()
     }
 }
 
