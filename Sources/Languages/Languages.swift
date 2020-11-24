@@ -1,5 +1,9 @@
 import Foundation
 
+extension Language {
+    public static var current:Language = .english
+}
+
 public enum Language: String, CaseIterable {
 //    case abkhazian = "ab"
 //    case afar = "aa"
