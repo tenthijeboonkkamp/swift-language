@@ -8,7 +8,7 @@
 
 import Foundation
 
-public func string(if condition:@autoclosure ()->Bool = true, for language:Languages.Language, dutch:String? = nil, english:String? = nil)->String {
+public func string(if condition:@autoclosure ()->Bool = true, for language:Languages.Language = .current, dutch:String? = nil, english:String? = nil)->String {
     switch language {
     case .english: return condition() ? english ?? "" : ""
     case .dutch: return condition() ? dutch ?? "" : ""
@@ -43,7 +43,11 @@ public func string<A>(from type: A, keyPath: KeyPath<A, Language>, dutch:String?
 }
 
 extension Languages.Language {
-    public func callAsFunction(if condition:@autoclosure ()->Bool = true, dutch:String?, english:String?)->String {
-        Languages.string(if: condition(), for: self, dutch: dutch, english: english)
+    public func callAsFunction<A>(dutch:A, english:A)->A {
+        Languages.value(for: self, dutch: dutch, english: english)
+    }
+    
+    public func callAsFunction<A>(all:A)->A {
+        Languages.value(for: self, dutch: all, english: all)
     }
 }
