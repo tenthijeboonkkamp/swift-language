@@ -47,6 +47,10 @@ extension Languages.Language {
         Languages.value(for: self, dutch: dutch, english: english)
     }
     
+    public func callAsFunction<A>(english:A, dutch:A)->A {
+        Languages.value(for: self, dutch: dutch, english: english)
+    }
+    
     public func callAsFunction<A>(all:A)->A {
         Languages.value(for: self, dutch: all, english: all)
     }
