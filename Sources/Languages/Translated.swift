@@ -95,7 +95,6 @@ extension Translated where A == String {
     static func +(lhs: String, rhs: Self) -> Self {
         return Translated<String>.init(english: lhs + rhs(.english), dutch: lhs + rhs(.dutch))
     }
-
 }
 
 
