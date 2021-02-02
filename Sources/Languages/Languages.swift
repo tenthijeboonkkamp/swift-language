@@ -4,7 +4,7 @@ extension Language {
     public static var current:Language = .english
 }
 
-public enum Language: String, CaseIterable {
+public enum Language: String, CaseIterable, Hashable, Equatable {
 //    case abkhazian = "ab"
 //    case afar = "aa"
 //    case afrikaans = "af"
@@ -197,6 +197,25 @@ public enum Language: String, CaseIterable {
 //    case zulu = "zu"
 }
 
+
+public extension Language {
+    
+    static let title:SinglePlural<Translated<String>> = .init(single: .init(english: "language", dutch: "taal"), plural: .init(english: "languages", dutch: "talen"))
+    
+    var label:Translated<String> {
+        switch self {
+        case .dutch: return .init(english: "Dutch", dutch: "Nederlands")
+        case .english: return .init(english: "English", dutch: "Engels")
+        }
+    }
+    
+//    var selectionForsystem:Translated<String> {
+//        switch self {
+//        case .dutch: return .init(english: "Nederlands", dutch: "Dutch")
+//        case .english: return .init(english: "English", dutch: "Engels")
+//        }
+//    }
+}
 
 public let all:[Language] = Language.allCases
 
