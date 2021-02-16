@@ -188,6 +188,10 @@ public struct Translated<A> {
 
 //extension Translated:StringProtocol where A:StringProtocol {}
 
+extension Translated:Codable where A:Codable {
+    
+}
+
 extension Translated:Equatable where A:Equatable {}
 
 extension Translated:Hashable where A:Hashable {}

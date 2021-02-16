@@ -4,7 +4,7 @@ extension Language {
     public static var current:Language = .english
 }
 
-public enum Language: String, CaseIterable, Hashable, Equatable {
+public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case abkhazian = "ab"
 //    case afar = "aa"
 //    case afrikaans = "af"
