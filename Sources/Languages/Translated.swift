@@ -299,5 +299,9 @@ public extension Translated where A == String {
         .init(english: self.english.capitalized(with: locale), dutch: self.dutch.capitalized(with: locale))
     }
     
+    func capitalizedFirstLetter()->Self {
+        .init(english: self.english.prefix(1).capitalized + self.english.dropFirst(), dutch: self.dutch.prefix(1).capitalized + self.dutch.dropFirst())
+    }
+    
     
 }

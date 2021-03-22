@@ -1,7 +1,7 @@
 import Foundation
 
 extension Language {
-    public static var current:Language = .english
+    public static var current:Language = .dutch
 }
 
 public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
@@ -221,6 +221,9 @@ public let all:[Language] = Language.allCases
 
 
 extension Locale {
+    
+    public static let nl:Self = .init(identifier: "nl_NL")
+    
     public static var autoupdatingLanguage:Language {
         switch Self.autoupdatingCurrent.identifier {
         case "nl_NL": return .dutch
@@ -228,3 +231,11 @@ extension Locale {
         }
     }
 }
+
+public extension String {
+    static func translated(english:String, dutch:String, language:Languages.Language = .current) -> String {
+        Translated<String>.init(english: english, dutch: dutch)(language)
+    }
+}
+
+
