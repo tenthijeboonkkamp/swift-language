@@ -236,6 +236,12 @@ public extension String {
     static func translated(english:String, dutch:String, language:Languages.Language = .current) -> String {
         Translated<String>.init(english: english, dutch: dutch)(language)
     }
+    
+    init(english:String, dutch:String, language:Languages.Language = .current){
+        self = Translated<String>.init(english: english, dutch: dutch)(language)
+    }
 }
+
+
 
 

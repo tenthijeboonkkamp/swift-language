@@ -7,9 +7,16 @@
 
 import Foundation
 
+
+@dynamicMemberLookup
 public struct SinglePlural<A> {
     public let single:A
     public let plural:A
+    
+    public var enkelvoud:A { single }
+    public var meervoud:A { plural }
+
+    public subscript<T>(dynamicMember keyPath: KeyPath<A, T>) -> T { single[keyPath: keyPath] }
     
     public enum Variant {
         case single
@@ -31,12 +38,26 @@ public struct SinglePlural<A> {
         callAsFunction(variant:variant)
     }
     
+    
+    
+    public func callAsFunction(_ int:Int)->A {
+        if int == 1 {
+            return self.single
+        } else {
+            return self.plural
+        }
+        
+//        callAsFunction(variant:variant)
+    }
+    
     public func callAsFunction(variant:Variant = .single)->A {
         switch variant {
         case .single: return self.single
         case .plural: return self.plural
         }
     }
+    
+    
     
     public func map<B>(_ transform:(A)->B)->SinglePlural<B> {
         return SinglePlural<B>.init(single: transform(self.single), plural: transform(self.plural))
@@ -68,6 +89,10 @@ public extension SinglePlural where A == Translated<String> {
 }
 
 extension SinglePlural:CustomStringConvertible where A == Translated<String> {
+    
+    public func callAsFunction(_ language:Languages.Language = .current)->String {
+        self.single(language)
+    }
     
     public init(
         _ string:Translated<String>
@@ -122,6 +147,11 @@ public struct Translated<A> {
     
     public var english:A
     public var dutch:A
+    
+    public var engels:A { english }
+    public var nederlands:A { dutch }
+    public var nl:A { dutch }
+    
     
     public func callAsFunction(with language:Languages.Language = .current)->A {
         callAsFunction(language: language)
