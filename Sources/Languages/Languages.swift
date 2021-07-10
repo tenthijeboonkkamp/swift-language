@@ -54,12 +54,12 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case faroese = "fo"
 //    case fijian = "fj"
 //    case finnish = "fi"
-//    case french = "fr"
+    case french = "fr"
 //    case fula, fulah, pulaar, pular = "ff"
 //    case galician = "gl"
 //    case gaelicScottish = "gd"
 //    case georgian = "ka"
-//    case german = "de"
+    case german = "de"
 //    case greek = "el"
 //    case guarani = "gn"
 //    case gujarati = "gu"
@@ -79,7 +79,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case inuktitut = "iu"
 //    case inupiak = "ik"
 //    case irish = "ga"
-//    case italian = "it"
+    case italian = "it"
 //    case japanese = "ja"
 //    case javanese = "jv"
 //    case kalaallisut, greenlandic = "kl"
@@ -157,7 +157,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case slovenian = "sl"
 //    case somali = "so"
 //    case southernNdebele = "nr"
-//    case spanish = "es"
+    case spanish = "es"
 //    case sundanese = "su"
 //    case swahili = "sw"
 //    case swati = "ss"
@@ -202,10 +202,30 @@ public extension Language {
     
     static let title:SinglePlural<Translated<String>> = .init(single: .init(english: "language", dutch: "taal"), plural: .init(english: "languages", dutch: "talen"))
     
-    var label:Translated<String> {
-        switch self {
-        case .dutch: return .init(english: "Dutch", dutch: "Nederlands")
-        case .english: return .init(english: "English", dutch: "Engels")
+    enum LabelLength:String, Hashable, Equatable, Codable {
+        case short, normal
+    }
+    
+    var label:Translated<String> { label(.normal) }
+    
+    
+    func label(_ length:LabelLength = .normal)->Translated<String> {
+        
+        
+        
+        switch (self, length) {
+        case (.dutch, .normal): return .init(english: "Dutch", dutch: "Nederlands")
+        case (.dutch, .short): return .init(english: "nl", dutch: "nl")
+        case (.english, .normal): return .init(english: "English")
+        case (.english, .short): return .init(english: "en", dutch: "en")
+        case (.french, .normal): return .init(english: "French", french: "Francais")
+        case (.french, .short): return .init(english: "fr", dutch: "fr")
+        case (.german, .normal): return .init(english: "German", german: "Deutsch")
+        case (.german, .short): return .init(english: "ge", dutch: "de")
+        case (.italian, .normal): return .init(english: "Italian", italian: "Italiana")
+        case (.italian, .short): return .init("it")
+        case (.spanish, .normal): return .init(english: "Spanish", spanish: "Español")
+        case (.spanish, .short): return .init(english: "spa")
         }
     }
     

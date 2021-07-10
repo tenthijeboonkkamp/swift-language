@@ -147,6 +147,10 @@ public struct Translated<A> {
     
     public var english:A
     public var dutch:A
+    public var french:A
+    public var italian:A
+    public var spanish:A
+    public var german:A
     
     public var engels:A { english }
     public var nederlands:A { dutch }
@@ -173,14 +177,15 @@ public struct Translated<A> {
         switch language {
         case .dutch: return dutch
         case .english: return english
+        case .french: return french
+        case .german: return german
+        case .italian: return italian
+        case .spanish: return spanish
         }
     }
     
     public func callAsFunction(_ language:Languages.Language = .current)->A {
-        switch language {
-        case .dutch: return dutch
-        case .english: return english
-        }
+        callAsFunction(language: language)
     }
     
     public init(
@@ -188,22 +193,33 @@ public struct Translated<A> {
     ){
         self.dutch = all
         self.english = all
+        self.german = all
+        self.italian = all
+        self.spanish = all
+        self.french = all
     }
     
     public init(
         _ all:(Languages.Language)->A
     ){
-        self.english = all(.english)
         self.dutch = all(.dutch)
+        self.english = all(.english)
+        self.german = all(.german)
+        self.italian = all(.italian)
+        self.spanish = all(.spanish)
+        self.french = all(.french)
     }
     
     public init(
-        
         english:A,
         dutch:A
     ){
         self.dutch = dutch
         self.english = english
+        self.german = english
+        self.italian = english
+        self.spanish = english
+        self.french = english
     }
     
     public func map<B>(_ transform:(A)->B)->Translated<B> {
@@ -212,6 +228,24 @@ public struct Translated<A> {
     
     public func flatMap<B>(_ transform:(A)->Translated<B>)->Translated<B> {
         return .init(english: transform(english).english, dutch: transform(dutch).dutch)
+    }
+}
+
+public extension Translated {
+    init(
+        english:A,
+        dutch:A? = nil,
+        german:A? = nil,
+        italian:A? = nil,
+        spanish:A? = nil,
+        french:A? = nil
+    ) {
+        self.dutch = dutch ?? english
+        self.english = english
+        self.german = german ?? english
+        self.italian = italian ?? english
+        self.spanish = spanish ?? english
+        self.french = french ?? english
     }
 }
 
@@ -298,6 +332,12 @@ extension Translated: ExpressibleByUnicodeScalarLiteral where A == String {
     public init(unicodeScalarLiteral value: String) {
         self.dutch = value
         self.english = value
+        self.dutch = value
+        self.english = value
+        self.german = value
+        self.italian = value
+        self.spanish = value
+        self.french = value
     }
     
     public typealias UnicodeScalarLiteralType = String
@@ -313,6 +353,12 @@ extension Translated:ExpressibleByStringLiteral where A == String {
     public init(stringLiteral:String) {
         self.dutch = stringLiteral
         self.english = stringLiteral
+        self.dutch = stringLiteral
+        self.english = stringLiteral
+        self.german = stringLiteral
+        self.italian = stringLiteral
+        self.spanish = stringLiteral
+        self.french = stringLiteral
     }
 }
 
