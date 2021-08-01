@@ -10,7 +10,15 @@ import Foundation
 
 extension Languages.Language {
     
-    public func callAsFunction<A>(english:A, dutch:A? = nil, french:A? = nil, german:A? = nil, italian:A? = nil, spanish:A? = nil)->A {
+    public func callAsFunction<A>(
+        english:A,
+        dutch:A? = nil,
+        french:A? = nil,
+        german:A? = nil,
+        italian:A? = nil,
+        spanish:A? = nil,
+        swedish:A? = nil
+    )->A {
         switch self {
         case .dutch: return dutch ?? english
         case .english: return english
@@ -18,6 +26,7 @@ extension Languages.Language {
         case .german: return german ?? english
         case .italian: return italian ?? english
         case .spanish: return spanish ?? english
+        case .swedish: return swedish ?? english
         }
     }
     

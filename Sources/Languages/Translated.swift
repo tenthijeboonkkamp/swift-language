@@ -103,10 +103,15 @@ extension SinglePlural:CustomStringConvertible where A == Translated<String> {
     
     public init(
         english:String,
-        dutch:String
+        dutch:String? = nil,
+        german:String? = nil,
+        italian:String? = nil,
+        spanish:String? = nil,
+        french:String? = nil,
+        swedish:String? = nil
     ) {
-        self.single = .init(english: english, dutch: dutch)
-        self.plural = .init(english: english, dutch: dutch)
+        self.single = .init(english: english, dutch: dutch, german: german, italian: italian, spanish: spanish, french: french, swedish: swedish)
+        self.plural = .init(english: english, dutch: dutch, german: german, italian: italian, spanish: spanish, french: french, swedish: swedish)
     }
     
     public var description: String {
@@ -151,10 +156,24 @@ public struct Translated<A> {
     public var italian:A
     public var spanish:A
     public var german:A
+    public var swedish:A
     
     public var engels:A { english }
     public var nederlands:A { dutch }
     public var nl:A { dutch }
+    
+    
+    func all()->[A] {
+        [
+            english,
+            dutch,
+            french,
+            italian,
+            spanish,
+            german,
+            swedish
+        ]
+    }
     
     
     public func callAsFunction(with language:Languages.Language = .current)->A {
@@ -181,6 +200,7 @@ public struct Translated<A> {
         case .german: return german
         case .italian: return italian
         case .spanish: return spanish
+        case .swedish: return swedish
         }
     }
     
@@ -197,6 +217,7 @@ public struct Translated<A> {
         self.italian = all
         self.spanish = all
         self.french = all
+        self.swedish = all
     }
     
     public init(
@@ -208,19 +229,20 @@ public struct Translated<A> {
         self.italian = all(.italian)
         self.spanish = all(.spanish)
         self.french = all(.french)
+        self.swedish = all(.swedish)
     }
     
-    public init(
-        english:A,
-        dutch:A
-    ){
-        self.dutch = dutch
-        self.english = english
-        self.german = english
-        self.italian = english
-        self.spanish = english
-        self.french = english
-    }
+//    public init(
+//        english:A,
+//        dutch:A
+//    ){
+//        self.dutch = dutch
+//        self.english = english
+//        self.german = english
+//        self.italian = english
+//        self.spanish = english
+//        self.french = english
+//    }
     
     public func map<B>(_ transform:(A)->B)->Translated<B> {
         return Translated<B>.init(english: transform(english), dutch: transform(self.dutch))
@@ -238,7 +260,8 @@ public extension Translated {
         german:A? = nil,
         italian:A? = nil,
         spanish:A? = nil,
-        french:A? = nil
+        french:A? = nil,
+        swedish:A? = nil
     ) {
         self.dutch = dutch ?? english
         self.english = english
@@ -246,6 +269,14 @@ public extension Translated {
         self.italian = italian ?? english
         self.spanish = spanish ?? english
         self.french = french ?? english
+        self.swedish = swedish ?? english
+    }
+}
+
+public extension Translated where A == String {
+    func contains(_ string:String) -> Bool {
+        self.all().map{ $0.lowercased() }.map { $0.contains(string.lowercased()) }.contains(true)
+//            || self.any
     }
 }
 
@@ -338,6 +369,7 @@ extension Translated: ExpressibleByUnicodeScalarLiteral where A == String {
         self.italian = value
         self.spanish = value
         self.french = value
+        self.swedish = value
     }
     
     public typealias UnicodeScalarLiteralType = String
@@ -359,6 +391,7 @@ extension Translated:ExpressibleByStringLiteral where A == String {
         self.italian = stringLiteral
         self.spanish = stringLiteral
         self.french = stringLiteral
+        self.swedish = stringLiteral
     }
 }
 
@@ -377,6 +410,14 @@ public extension Translated where A == String {
     
     func capitalizedFirstLetter()->Self {
         .init(english: self.english.prefix(1).capitalized + self.english.dropFirst(), dutch: self.dutch.prefix(1).capitalized + self.dutch.dropFirst())
+    }
+    
+    func firstLetter(_ closure:(String)->String)->Self {
+        .init(english: closure(String(self.english.prefix(1))) + self.english.dropFirst(), dutch: closure(String(self.dutch.prefix(1))) + self.dutch.dropFirst())
+    }
+    
+    func lowercased()->Self {
+        .init(english: self.english.lowercased(), dutch: self.dutch.lowercased())
     }
     
     

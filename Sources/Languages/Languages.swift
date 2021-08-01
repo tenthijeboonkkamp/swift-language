@@ -1,7 +1,7 @@
 import Foundation
 
 extension Language {
-    public static var current:Language = .dutch
+    public static var current:Language = .english
 }
 
 public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
@@ -161,7 +161,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case sundanese = "su"
 //    case swahili = "sw"
 //    case swati = "ss"
-//    case swedish = "sv"
+    case swedish = "sv"
 //    case tagalog = "tl"
 //    case tahitian = "ty"
 //    case tajik = "tg"
@@ -226,6 +226,8 @@ public extension Language {
         case (.italian, .short): return .init("it")
         case (.spanish, .normal): return .init(english: "Spanish", spanish: "Español")
         case (.spanish, .short): return .init(english: "spa")
+        case (.swedish, .normal): return .init(english: "Swedish", swedish: "svenska")
+        case (.swedish, .short): return .init(english: "swe")
         }
     }
     
@@ -253,11 +255,19 @@ extension Locale {
 }
 
 public extension String {
-    static func translated(english:String, dutch:String, language:Languages.Language = .current) -> String {
+    static func translated(
+        english:String,
+        dutch:String? = nil,
+        language:Languages.Language = .current
+    ) -> String {
         Translated<String>.init(english: english, dutch: dutch)(language)
     }
     
-    init(english:String, dutch:String, language:Languages.Language = .current){
+    init(
+        english:String,
+        dutch:String? = nil,
+        language:Languages.Language = .current
+    ){
         self = Translated<String>.init(english: english, dutch: dutch)(language)
     }
 }
