@@ -200,7 +200,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 
 public extension Language {
     
-    static let title:SinglePlural<Translated<String>> = .init(single: .init(english: "language", dutch: "taal"), plural: .init(english: "languages", dutch: "talen"))
+    static let title:SinglePlural<Translated<String>> = .init(single: .init(english: "Language", dutch: "Taal"), plural: .init(english: "Languages", dutch: "Talen"))
     
     enum LabelLength:String, Hashable, Equatable, Codable {
         case short, normal
