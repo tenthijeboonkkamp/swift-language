@@ -211,14 +211,12 @@ public extension Language {
     
     func label(_ length:LabelLength = .normal)->Translated<String> {
         
-        
-        
         switch (self, length) {
         case (.dutch, .normal): return .init(english: "Dutch", dutch: "Nederlands")
         case (.dutch, .short): return .init(english: "nl", dutch: "nl")
-        case (.english, .normal): return .init(english: "English")
+        case (.english, .normal): return .init(english: "English", dutch: "Engels")
         case (.english, .short): return .init(english: "en", dutch: "en")
-        case (.french, .normal): return .init(english: "French", french: "Francais")
+        case (.french, .normal): return .init(english: "French", dutch: "Frans", french: "Francais")
         case (.french, .short): return .init(english: "fr", dutch: "fr")
         case (.german, .normal): return .init(english: "German", german: "Deutsch")
         case (.german, .short): return .init(english: "ge", dutch: "de")
@@ -230,13 +228,6 @@ public extension Language {
         case (.swedish, .short): return .init(english: "swe")
         }
     }
-    
-//    var selectionForsystem:Translated<String> {
-//        switch self {
-//        case .dutch: return .init(english: "Nederlands", dutch: "Dutch")
-//        case .english: return .init(english: "English", dutch: "Engels")
-//        }
-//    }
 }
 
 public let all:[Language] = Language.allCases
