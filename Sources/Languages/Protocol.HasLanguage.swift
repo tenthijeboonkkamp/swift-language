@@ -28,3 +28,23 @@ extension Languages.Language {
         }
     }
 }
+
+public extension Languages.Language {
+    static func preferredLanguageForUser()->Self {
+        
+//        print(Bundle.main.preferredLocalizations)
+//        print(Locale.preferredLanguages)
+        
+        if let language = Locale.preferredLanguages.first {
+            switch language {
+            case "en", "en-US", "en-UK": return .english
+            case "nl-NL", "nl": return .dutch
+            default: return .english
+            }
+        } else {
+            return .english
+        }
+        
+        
+    }
+}
