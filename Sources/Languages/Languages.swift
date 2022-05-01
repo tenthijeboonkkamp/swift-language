@@ -1,8 +1,8 @@
 import Foundation
 
-extension Language {
-    public static var current:Language = .english
-}
+//extension Language {
+//    public static var current:Language = .english
+//}
 
 public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case abkhazian = "ab"
@@ -249,7 +249,7 @@ public extension String {
     static func translated(
         english:String,
         dutch:String? = nil,
-        language:Languages.Language = .current
+        language:Languages.Language
     ) -> String {
         Translated<String>.init(english: english, dutch: dutch)(language)
     }
@@ -257,7 +257,7 @@ public extension String {
     init(
         english:String,
         dutch:String? = nil,
-        language:Languages.Language = .current
+        language:Languages.Language
     ){
         self = Translated<String>.init(english: english, dutch: dutch)(language)
     }
