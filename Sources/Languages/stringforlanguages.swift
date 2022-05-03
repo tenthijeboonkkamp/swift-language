@@ -17,7 +17,8 @@ extension Languages.Language {
         german:A? = nil,
         italian:A? = nil,
         spanish:A? = nil,
-        swedish:A? = nil
+        swedish:A? = nil,
+        danish:A? = nil
     )->A {
         switch self {
         case .dutch: return dutch ?? english
@@ -27,6 +28,7 @@ extension Languages.Language {
         case .italian: return italian ?? english
         case .spanish: return spanish ?? english
         case .swedish: return swedish ?? english
+        case .danish: return danish ?? english
         }
     }
     

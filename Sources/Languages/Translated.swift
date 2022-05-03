@@ -16,6 +16,7 @@ public struct Translated<A> {
     public var spanish:A
     public var german:A
     public var swedish:A
+    public var danish:A
     
     public var engels:A { english }
     public var nederlands:A { dutch }
@@ -30,7 +31,8 @@ public struct Translated<A> {
             italian,
             spanish,
             german,
-            swedish
+            swedish,
+            danish
         ]
     }
     
@@ -60,6 +62,7 @@ public struct Translated<A> {
         case .italian: return italian
         case .spanish: return spanish
         case .swedish: return swedish
+        case .danish: return danish
         }
     }
     
@@ -77,6 +80,7 @@ public struct Translated<A> {
         self.spanish = all
         self.french = all
         self.swedish = all
+        self.danish = all
     }
     
     public init(
@@ -89,21 +93,9 @@ public struct Translated<A> {
         self.spanish = all(.spanish)
         self.french = all(.french)
         self.swedish = all(.swedish)
+        self.danish = all(.danish)
     }
     
-    
-    
-//    public init(
-//        english:A,
-//        dutch:A
-//    ){
-//        self.dutch = dutch
-//        self.english = english
-//        self.german = english
-//        self.italian = english
-//        self.spanish = english
-//        self.french = english
-//    }
     
     public func map<B>(_ transform:(A)->B)->Translated<B> {
         return Translated<B>.init(english: transform(english), dutch: transform(self.dutch))
@@ -122,7 +114,8 @@ public extension Translated {
         italian:A? = nil,
         spanish:A? = nil,
         french:A? = nil,
-        swedish:A? = nil
+        swedish:A? = nil,
+        danish:A? = nil
     ) {
         self.dutch = dutch ?? english
         self.english = english
@@ -131,6 +124,7 @@ public extension Translated {
         self.spanish = spanish ?? english
         self.french = french ?? english
         self.swedish = swedish ?? english
+        self.danish = danish ?? english
     }
 }
 
@@ -231,6 +225,7 @@ extension Translated: ExpressibleByUnicodeScalarLiteral where A == String {
         self.spanish = value
         self.french = value
         self.swedish = value
+        self.danish = value
     }
     
     public typealias UnicodeScalarLiteralType = String
@@ -253,6 +248,7 @@ extension Translated:ExpressibleByStringLiteral where A == String {
         self.spanish = stringLiteral
         self.french = stringLiteral
         self.swedish = stringLiteral
+        self.danish = stringLiteral
     }
 }
 
@@ -280,6 +276,4 @@ public extension Translated where A == String {
     func lowercased()->Self {
         .init(english: self.english.lowercased(), dutch: self.dutch.lowercased())
     }
-    
-    
 }

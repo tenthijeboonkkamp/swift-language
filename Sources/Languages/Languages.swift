@@ -43,7 +43,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case cree = "cr"
 //    case croatian = "hr"
 //    case czech = "cs"
-//    case danish = "da"
+    case danish = "da"
 //    case divehi, dhivehi, maldivian = "dv"
     case dutch = "nl"
 //    case dzongkha = "dz"
@@ -226,6 +226,8 @@ public extension Language {
         case (.spanish, .short): return .init(english: "spa")
         case (.swedish, .normal): return .init(english: "Swedish", swedish: "svenska")
         case (.swedish, .short): return .init(english: "swe")
+        case (.danish, .short): return .init(english: "da")
+        case (.danish, .normal): return .init(english: "Danish")
         }
     }
 }

@@ -25,6 +25,7 @@ extension Languages.Language {
         case .italian: fatalError()
         case .spanish: fatalError()
         case .swedish: fatalError()
+        case .danish: fatalError()
         }
     }
 }
