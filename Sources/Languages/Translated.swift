@@ -9,14 +9,29 @@ import Foundation
 
 public struct Translated<A> {
     
-    public var english:A
-    public var dutch:A
-    public var french:A
-    public var italian:A
-    public var spanish:A
-    public var german:A
-    public var swedish:A
-    public var danish:A
+//    public var english:A
+//    public var dutch:A
+//    public var french:A
+//    public var italian:A
+//    public var spanish:A
+//    public var german:A
+//    public var swedish:A
+//    public var danish:A
+//
+    public let chinese:A
+    public let danish:A
+    public let dutch:A
+    public let english:A
+    public let french:A
+    public let german:A
+    public let italian:A
+    public let japanese:A
+    public let korean:A
+    public let portuguese:A
+    public let russian:A
+    public let spanish:A
+    public let swedish:A
+    public let turkish:A
     
     public var engels:A { english }
     public var nederlands:A { dutch }
@@ -25,14 +40,20 @@ public struct Translated<A> {
     
     func all()->[A] {
         [
-            english,
+            chinese,
+            danish,
             dutch,
+            english,
             french,
-            italian,
-            spanish,
             german,
+            italian,
+            japanese,
+            korean,
+            portuguese,
+            russian,
+            spanish,
             swedish,
-            danish
+            turkish
         ]
     }
     
@@ -55,14 +76,21 @@ public struct Translated<A> {
     
     public func callAsFunction(language:Languages.Language)->A {
         switch language {
+        
+        case .chinese: return chinese
+        case .danish: return danish
         case .dutch: return dutch
         case .english: return english
         case .french: return french
         case .german: return german
         case .italian: return italian
+        case .japanese: return japanese
+        case .korean: return korean
+        case .portuguese: return portuguese
+        case .russian: return russian
         case .spanish: return spanish
         case .swedish: return swedish
-        case .danish: return danish
+        case .turkish: return turkish
         }
     }
     
@@ -73,27 +101,41 @@ public struct Translated<A> {
     public init(
         _ all:A
     ){
+        self.chinese = all
+        self.danish = all
         self.dutch = all
         self.english = all
+        self.french = all
         self.german = all
         self.italian = all
+        self.japanese = all
+        self.korean = all
+        self.portuguese = all
+        self.russian = all
         self.spanish = all
-        self.french = all
         self.swedish = all
-        self.danish = all
+        self.turkish = all
+        
+
     }
     
     public init(
         _ all:(Languages.Language)->A
     ){
+        self.chinese = all(.chinese)
+        self.danish = all(.danish)
         self.dutch = all(.dutch)
         self.english = all(.english)
+        self.french = all(.french)
         self.german = all(.german)
         self.italian = all(.italian)
+        self.japanese = all(.japanese)
+        self.korean = all(.korean)
+        self.portuguese = all(.portuguese)
+        self.russian = all(.russian)
         self.spanish = all(.spanish)
-        self.french = all(.french)
         self.swedish = all(.swedish)
-        self.danish = all(.danish)
+        self.turkish = all(.turkish)
     }
     
     
@@ -110,21 +152,34 @@ public extension Translated {
     init(
         english:A,
         dutch:A? = nil,
+        chinese:A? = nil,
+        danish:A? = nil,
+        french:A? = nil,
         german:A? = nil,
         italian:A? = nil,
+        japanese:A? = nil,
+        korean:A? = nil,
+        portuguese:A? = nil,
+        russian:A? = nil,
         spanish:A? = nil,
-        french:A? = nil,
         swedish:A? = nil,
-        danish:A? = nil
+        turkish:A? = nil
     ) {
+        
+        self.chinese = chinese ?? english
+        self.danish = danish ?? english
         self.dutch = dutch ?? english
         self.english = english
+        self.french = french ?? english
         self.german = german ?? english
         self.italian = italian ?? english
+        self.japanese = japanese ?? english
+        self.korean = korean ?? english
+        self.portuguese = portuguese ?? english
+        self.russian = russian ?? english
         self.spanish = spanish ?? english
-        self.french = french ?? english
         self.swedish = swedish ?? english
-        self.danish = danish ?? english
+        self.turkish = turkish ?? english
     }
 }
 
@@ -216,16 +271,20 @@ extension Translated:CustomStringConvertible where A == String {
 
 extension Translated: ExpressibleByUnicodeScalarLiteral where A == String {
     public init(unicodeScalarLiteral value: String) {
+        self.chinese = value
+        self.danish = value
         self.dutch = value
         self.english = value
-        self.dutch = value
-        self.english = value
+        self.french = value
         self.german = value
         self.italian = value
+        self.japanese = value
+        self.korean = value
+        self.portuguese = value
+        self.russian = value
         self.spanish = value
-        self.french = value
         self.swedish = value
-        self.danish = value
+        self.turkish = value
     }
     
     public typealias UnicodeScalarLiteralType = String
@@ -239,41 +298,50 @@ extension Translated: ExpressibleByExtendedGraphemeClusterLiteral where A == Str
 
 extension Translated:ExpressibleByStringLiteral where A == String {
     public init(stringLiteral:String) {
+        self.chinese = stringLiteral
+        self.danish = stringLiteral
         self.dutch = stringLiteral
         self.english = stringLiteral
-        self.dutch = stringLiteral
-        self.english = stringLiteral
+        self.french = stringLiteral
         self.german = stringLiteral
         self.italian = stringLiteral
+        self.japanese = stringLiteral
+        self.korean = stringLiteral
+        self.portuguese = stringLiteral
+        self.russian = stringLiteral
         self.spanish = stringLiteral
-        self.french = stringLiteral
         self.swedish = stringLiteral
-        self.danish = stringLiteral
+        self.turkish = stringLiteral
     }
 }
 
 public extension Translated where A == String {
-    static let empty:Self = .init(english: "", dutch: "")
+    static let empty:Self = .init("")
 }
 
 public extension Translated where A == String {
     var capitalized:Self {
-        .init(english: self.english.capitalized, dutch: self.dutch.capitalized)
+        self.map(\.capitalized)
     }
     
     func capitalized(with locale: Locale? = nil)->Self {
-        .init(english: self.english.capitalized(with: locale), dutch: self.dutch.capitalized(with: locale))
+        self.map{ $0.capitalized(with: locale) }
     }
     
     func capitalizedFirstLetter()->Self {
-        .init(english: self.english.prefix(1).capitalized + self.english.dropFirst(), dutch: self.dutch.prefix(1).capitalized + self.dutch.dropFirst())
+        self.map { $0.prefix(1).capitalized + $0.dropFirst() }
+        
+        
+//        .init(english: self.english.prefix(1).capitalized + self.english.dropFirst(), dutch: self.dutch.prefix(1).capitalized + self.dutch.dropFirst())
     }
     
     func firstLetter(_ closure:(String)->String)->Self {
-        .init(english: closure(String(self.english.prefix(1))) + self.english.dropFirst(), dutch: closure(String(self.dutch.prefix(1))) + self.dutch.dropFirst())
+        
+        self.map { closure(String($0.prefix(1))) + $0.dropFirst() }
+        
     }
     
-    func lowercased()->Self {
-        .init(english: self.english.lowercased(), dutch: self.dutch.lowercased())
+    func lowercased(with locale: Locale? = nil)->Self {
+        self.map { $0.lowercased(with: locale) }
     }
 }

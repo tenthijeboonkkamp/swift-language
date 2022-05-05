@@ -20,12 +20,7 @@ extension Languages.Language {
         switch self {
         case .english: return .init(identifier: "US_us")
         case .dutch: return .init(identifier: "NL_nl")
-        case .french: fatalError()
-        case .german: fatalError()
-        case .italian: fatalError()
-        case .spanish: fatalError()
-        case .swedish: fatalError()
-        case .danish: fatalError()
+        default: fatalError()
         }
     }
 }

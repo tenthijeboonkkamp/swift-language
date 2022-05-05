@@ -36,7 +36,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case chamorro = "ch"
 //    case chechen = "ce"
 //    case chichewa, chewa, nyanja = "ny"
-//    case chinese = "zh"
+    case chinese = "zh"
 //    case chuvash = "cv"
 //    case cornish = "kw"
 //    case corsican = "co"
@@ -80,7 +80,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case inupiak = "ik"
 //    case irish = "ga"
     case italian = "it"
-//    case japanese = "ja"
+    case japanese = "ja"
 //    case javanese = "jv"
 //    case kalaallisut, greenlandic = "kl"
 //    case kannada = "kn"
@@ -94,7 +94,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case kyrgyz = "ky"
 //    case komi = "kv"
 //    case kongo = "kg"
-//    case korean = "ko"
+    case korean = "ko"
 //    case kurdish = "ku"
 //    case kwanyama = "kj"
 //    case lao = "lo"
@@ -136,12 +136,12 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case pashto, pushto = "ps"
 //    case persian = "fa"
 //    case polish = "pl"
-//    case portuguese = "pt"
+    case portuguese = "pt"
 //    case punjabi = "pa"
 //    case quechua = "qu"
 //    case romansh = "rm"
 //    case romanian = "ro"
-//    case russian = "ru"
+    case russian = "ru"
 //    case sami = "se"
 //    case samoan = "sm"
 //    case sango = "sg"
@@ -173,7 +173,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case tigrinya = "ti"
 //    case tonga = "to"
 //    case tsonga = "ts"
-//    case turkish = "tr"
+    case turkish = "tr"
 //    case turkmen = "tk"
 //    case twi = "tw"
 //    case uyghur = "ug"
@@ -228,6 +228,18 @@ public extension Language {
         case (.swedish, .short): return .init(english: "swe")
         case (.danish, .short): return .init(english: "da")
         case (.danish, .normal): return .init(english: "Danish")
+        case (.chinese, .short): return .init(english: "ch")
+        case (.chinese, .normal): return .init(english: "Chinese")
+        case (.japanese, _):
+            fatalError()
+        case (.korean, _):
+            fatalError()
+        case (.portuguese, _):
+            fatalError()
+        case (.russian, _):
+            fatalError()
+        case (.turkish, _):
+            fatalError()
         }
     }
 }

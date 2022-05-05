@@ -13,22 +13,34 @@ extension Languages.Language {
     public func callAsFunction<A>(
         english:A,
         dutch:A? = nil,
+        chinese:A? = nil,
+        danish:A? = nil,
         french:A? = nil,
         german:A? = nil,
         italian:A? = nil,
+        japanese:A? = nil,
+        korean:A? = nil,
+        portuguese:A? = nil,
+        russian:A? = nil,
         spanish:A? = nil,
         swedish:A? = nil,
-        danish:A? = nil
+        turkish:A? = nil
     )->A {
         switch self {
-        case .dutch: return dutch ?? english
         case .english: return english
+        case .dutch: return dutch ?? english
+        case .chinese: return chinese ?? english
+        case .danish: return danish ?? english
         case .french: return french ?? english
         case .german: return german ?? english
         case .italian: return italian ?? english
+        case .japanese: return japanese ?? english
+        case .korean: return korean ?? english
+        case .portuguese: return portuguese ?? english
+        case .russian: return russian ?? english
         case .spanish: return spanish ?? english
         case .swedish: return swedish ?? english
-        case .danish: return danish ?? english
+        case .turkish: return turkish ?? english
         }
     }
     
