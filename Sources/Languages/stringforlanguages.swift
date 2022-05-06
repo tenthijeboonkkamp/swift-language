@@ -13,6 +13,7 @@ extension Languages.Language {
     public func callAsFunction<A>(
         english:A,
         dutch:A? = nil,
+        arabic:A? = nil,
         chinese:A? = nil,
         danish:A? = nil,
         french:A? = nil,
@@ -41,6 +42,8 @@ extension Languages.Language {
         case .spanish: return spanish ?? english
         case .swedish: return swedish ?? english
         case .turkish: return turkish ?? english
+        case .arabic: return arabic ?? english
+        default: fatalError()
         }
     }
     
