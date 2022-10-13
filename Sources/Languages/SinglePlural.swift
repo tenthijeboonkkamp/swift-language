@@ -12,43 +12,50 @@ public struct SinglePlural<A> {
     public let single:A
     public let plural:A
     
+    public var preferredA:A {
+        switch preferred {
+        case .single: return single
+        case .plural: return plural
+        }
+    }
+    
+    public let preferred:Variant
+    
+
     public var enkelvoud:A { single }
     public var meervoud:A { plural }
 
-    public subscript<T>(dynamicMember keyPath: KeyPath<A, T>) -> T { single[keyPath: keyPath] }
+    public subscript<T>(dynamicMember keyPath: KeyPath<A, T>) -> T {
+        switch preferred {
+        case .single: return single[keyPath: keyPath]
+        case .plural: return plural[keyPath: keyPath]
+        }
+    }
     
-    public enum Variant {
+    public enum Variant:String, Codable, Hashable {
         case single
         case plural
     }
     
-    public func callAsFunction(with variant:Variant = .single)->A {
+    public func callAsFunction(with variant:Variant? = nil)->A {
         callAsFunction(variant: variant)
     }
     
-    public func callAsFunction(in variant:Variant = .single)->A {
+    public func callAsFunction(in variant:Variant? = nil)->A {
         callAsFunction(variant: variant)
     }
     
-    public func callAsFunction(for variant:Variant = .single)->A {
+    public func callAsFunction(for variant:Variant? = nil)->A {
         callAsFunction(variant: variant)
     }
-    public func callAsFunction(_ variant:Variant = .single)->A {
+    public func callAsFunction(_ variant:Variant? = nil)->A {
         callAsFunction(variant:variant)
     }
+
     
-    public func callAsFunction(_ int:Int)->A {
-        if int == 1 {
-            return self.single
-        } else {
-            return self.plural
-        }
-        
-//        callAsFunction(variant:variant)
-    }
-    
-    public func callAsFunction(variant:Variant = .single)->A {
+    public func callAsFunction(variant:Variant? = nil)->A {
         switch variant {
+        case .none: return self.preferredA
         case .single: return self.single
         case .plural: return self.plural
         }
@@ -65,26 +72,31 @@ public struct SinglePlural<A> {
     }
     
     public init(
-        _ all: A
+        _ all: A,
+        preferred:Variant = .single
     ){
         self.single = all
         self.plural = all
+        self.preferred = preferred
     }
     
     public init(
+        preferred:Variant = .single,
         _ all: (Variant)->A
     ){
         self.single = all(.single)
         self.plural = all(.plural)
+        self.preferred = preferred
     }
     
     public init(
-        
         single:A,
-        plural:A
+        plural:A,
+        preferred:Variant = .single
     ){
         self.single = single
         self.plural = plural
+        self.preferred = preferred
     }
 }
 
@@ -94,6 +106,14 @@ public extension SinglePlural where A == Translated<String> {
     init(english:String, dutch:String? = nil){
         self = .init(Translated<String>.init(english: english, dutch: dutch))
     }
+    
+    func callAsFunction(_ variant:Variant = .single, _ language:Languages.Language)->String {
+        callAsFunction(variant:variant)(language)
+    }
+    
+//    func callAsFunction(_ language:Languages.Language)->A {
+//        callAsFunction(
+//    }
 }
 
 //extension SinglePlural:CustomStringConvertible where A == Translated<String> {
@@ -124,27 +144,27 @@ public extension SinglePlural where A == Translated<String> {
 //
 //}
 
-extension SinglePlural: ExpressibleByUnicodeScalarLiteral where A == Translated<String> {
-    public init(unicodeScalarLiteral value: Translated<String>) {
-        self.single = value
-        self.plural = value
-    }
-    
-    public typealias UnicodeScalarLiteralType = String
-    
-}
+//extension SinglePlural: ExpressibleByUnicodeScalarLiteral where A == Translated<String> {
+//    public init(unicodeScalarLiteral value: Translated<String>) {
+//        self.single = value
+//        self.plural = value
+//    }
+//    
+//    public typealias UnicodeScalarLiteralType = String
+//    
+//}
 
-extension SinglePlural: ExpressibleByExtendedGraphemeClusterLiteral where A == Translated<String> {
-    public typealias ExtendedGraphemeClusterLiteralType = String
-    
-}
+//extension SinglePlural: ExpressibleByExtendedGraphemeClusterLiteral where A == Translated<String> {
+//    public typealias ExtendedGraphemeClusterLiteralType = String
+//    
+//}
 
-extension SinglePlural:ExpressibleByStringLiteral where A == Translated<String> {
-    public init(stringLiteral:String) {
-        self.single = .init(stringLiteral)
-        self.plural = .init(stringLiteral)
-    }
-}
+//extension SinglePlural:ExpressibleByStringLiteral & ExpressibleByStringInterpolation where A == Translated<String> {
+//    public init(stringLiteral:String) {
+//        self.single = .init(stringLiteral)
+//        self.plural = .init(stringLiteral)
+//    }
+//}
 
 public extension SinglePlural where A == Translated<String> {
     static let empty:Self = .init(single: "", plural: "")

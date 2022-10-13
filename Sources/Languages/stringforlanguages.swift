@@ -31,7 +31,7 @@ extension Languages.Language {
         case .english: return english
         case .dutch: return dutch ?? english
         case .chinese: return chinese ?? english
-        case .danish: return danish ?? english
+//        case .danish: return danish ?? english
         case .french: return french ?? english
         case .german: return german ?? english
         case .italian: return italian ?? english
@@ -40,10 +40,10 @@ extension Languages.Language {
         case .portuguese: return portuguese ?? english
         case .russian: return russian ?? english
         case .spanish: return spanish ?? english
-        case .swedish: return swedish ?? english
-        case .turkish: return turkish ?? english
+//        case .swedish: return swedish ?? english
+//        case .turkish: return turkish ?? english
         case .arabic: return arabic ?? english
-        default: fatalError()
+        default: return english
         }
     }
     
