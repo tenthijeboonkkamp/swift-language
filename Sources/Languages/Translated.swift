@@ -1341,6 +1341,11 @@ public extension Translated where A == String {
 }
 
 public extension Translated where A == String {
+    
+    var isEmpty:Bool {
+        self.english.isEmpty && self.dutch.isEmpty
+    }
+    
     var capitalized:Self {
         self.map(\.capitalized)
     }
