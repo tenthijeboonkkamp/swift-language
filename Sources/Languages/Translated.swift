@@ -17,30 +17,33 @@ public extension TranslatedString {
     static let questionmark:Self = .init("?")
 }
 
+
+
+
 public struct Translated<A> {
     public let dutch:A
     public let english:A
-//    public let arabic:A
-//    public let bengali:A
-//    public let chinese:A
-//    public let danish:A
-//    public let french:A
-//    public let german:A
-//    public let hindi:A
-//    public let irish:A
-//    public let italian:A
-//    public let japanese:A
-//    public let javanese:A
-//    public let korean:A
-//    public let polish:A
-//    public let portuguese:A
-//    public let romanian:A
-//    public let russian:A
-//    public let slovak:A
-//    public let slovenian:A
-//    public let spanish:A
-//    public let swedish:A
-//    public let turkish:A
+    public let arabic:A
+    public let bengali:A
+    public let chinese:A
+    public let danish:A
+    public let french:A
+    public let german:A
+    public let hindi:A
+    public let irish:A
+    public let italian:A
+    public let japanese:A
+    public let javanese:A
+    public let korean:A
+    public let polish:A
+    public let portuguese:A
+    public let romanian:A
+    public let russian:A
+    public let slovak:A
+    public let slovenian:A
+    public let spanish:A
+    public let swedish:A
+    public let turkish:A
 //    public let abkhazian:A
 //    public let afar:A
 //    public let afrikaans:A
@@ -103,7 +106,7 @@ public struct Translated<A> {
 //    public let icelandic:A
 //    public let ido:A
 //    public let igbo:A
-//    public let indonesian:A
+    public let indonesian:A
 //    public let interlingua:A
 //    public let interlingue:A
 //    public let inuktitut:A
@@ -423,18 +426,17 @@ public struct Translated<A> {
         switch language {
         case .dutch: return dutch
         case .english: return english
-
-//        case .arabic: return arabic
-//        case .chinese: return chinese
-//        case .danish: return danish
-//        case .french: return french
-//        case .german: return german
-//        case .italian: return italian
+        case .arabic: return arabic
+        case .chinese: return chinese
+        case .danish: return danish
+        case .french: return french
+        case .german: return german
+        case .italian: return italian
 //        case .japanese: return japanese
 //        case .korean: return korean
 //        case .portuguese: return portuguese
 //        case .russian: return russian
-//        case .spanish: return spanish
+        case .spanish: return spanish
 //        case .swedish: return swedish
 //        case .turkish: return turkish
 //        case .bengali: return bengali
@@ -624,29 +626,34 @@ public struct Translated<A> {
     public init(
         _ all:(Languages.Language)->A
     ){
+        
+        
+        
+        
         self.dutch = all(.dutch)
         self.english = all(.english)
-//        self.arabic = all(.arabic)
-//        self.bengali = all(.bengali)
-//        self.chinese = all(.chinese)
-//        self.danish = all(.danish)
-//        self.french = all(.french)
-//        self.german = all(.german)
-//        self.hindi = all(.hindi)
-//        self.irish = all(.irish)
-//        self.italian = all(.italian)
-//        self.japanese = all(.japanese)
-//        self.javanese = all(.javanese)
-//        self.korean = all(.korean)
-//        self.polish = all(.polish)
-//        self.portuguese = all(.portuguese)
-//        self.romanian = all(.romanian)
-//        self.russian = all(.russian)
-//        self.spanish = all(.spanish)
-//        self.slovak = all(.slovak)
-//        self.slovenian = all(.slovenian)
-//        self.swedish = all(.swedish)
-//        self.turkish = all(.turkish)
+        self.arabic = all(.arabic)
+        self.bengali = all(.bengali)
+        self.chinese = all(.chinese)
+        self.danish = all(.danish)
+        self.french = all(.french)
+        self.german = all(.german)
+        self.hindi = all(.hindi)
+        self.irish = all(.irish)
+        self.indonesian = all(.indonesian)
+        self.italian = all(.italian)
+        self.japanese = all(.japanese)
+        self.javanese = all(.javanese)
+        self.korean = all(.korean)
+        self.polish = all(.polish)
+        self.portuguese = all(.portuguese)
+        self.romanian = all(.romanian)
+        self.russian = all(.russian)
+        self.spanish = all(.spanish)
+        self.slovak = all(.slovak)
+        self.slovenian = all(.slovenian)
+        self.swedish = all(.swedish)
+        self.turkish = all(.turkish)
 
 //        self.abkhazian = all(.abkhazian)
 //        self.afar = all(.afar)
@@ -824,219 +831,126 @@ public struct Translated<A> {
     
     
     public func map<B>(_ transform:(A)->B)->Translated<B> {
-        return Translated<B>.init(english: transform(english), dutch: transform(self.dutch))
+//        return Translated<B>.init(
+//            dutch: transform(self.dutch),
+//            english: transform(english)
+//        )
+        
+        return Translated<B>.init(
+            arabic: transform(self.arabic),
+            bengali: transform(self.bengali),
+            chinese: transform(self.chinese),
+            danish: transform(self.danish),
+            dutch: transform(self.dutch),
+            english: transform(self.english),
+            french: transform(self.french),
+            german: transform(self.german),
+            hindi: transform(self.hindi),
+            indonesian: transform(self.indonesian),
+            irish: transform(self.irish),
+            italian: transform(self.italian),
+            japanese: transform(self.japanese),
+            javanese: transform(self.javanese),
+            korean: transform(self.korean),
+            polish: transform(self.polish),
+            portuguese: transform(self.portuguese),
+            romanian: transform(self.romanian),
+            russian: transform(self.russian),
+            slovak: transform(self.slovak),
+            slovenian: transform(self.slovenian),
+            spanish: transform(self.spanish),
+            swedish: transform(self.swedish),
+            turkish: transform(self.turkish)
+        )
     }
     
     public func flatMap<B>(_ transform:(A)->Translated<B>)->Translated<B> {
-        return .init(english: transform(english).english, dutch: transform(dutch).dutch)
+//        return .init(
+//            dutch: transform(dutch).dutch,
+//            english: transform(english).english
+//        )
+        
+        return .init(
+            arabic: transform(arabic).arabic,
+            bengali: transform(bengali).bengali,
+            chinese: transform(chinese).chinese,
+            danish: transform(danish).danish,
+            dutch: transform(dutch).dutch,
+            english: transform(english).english,
+            french: transform(french).french,
+            german: transform(german).german,
+            hindi: transform(hindi).hindi,
+            indonesian: transform(indonesian).indonesian,
+            irish: transform(irish).irish,
+            italian: transform(italian).italian,
+            japanese: transform(japanese).japanese,
+            javanese: transform(javanese).javanese,
+            korean: transform(korean).korean,
+            polish: transform(polish).polish,
+            portuguese: transform(portuguese).portuguese,
+            romanian: transform(romanian).romanian,
+            russian: transform(russian).russian,
+            slovak: transform(slovak).slovak,
+            slovenian: transform(slovenian).slovenian,
+            spanish: transform(spanish).spanish,
+            swedish: transform(swedish).swedish,
+            turkish: transform(turkish).turkish
+        )
     }
 }
 
 public extension Translated {
     init(
-        english:A,
-        dutch:A? = nil,
-        abkhazian:A? = nil,
-        afar:A? = nil,
-        afrikaans:A? = nil,
-        akan:A? = nil,
-        albanian:A? = nil,
-        amharic:A? = nil,
         arabic:A? = nil,
-        aragonese:A? = nil,
-        armenian:A? = nil,
-        assamese:A? = nil,
-        auEnglish:A? = nil,
-        avaric:A? = nil,
-        avestan:A? = nil,
-        aymara:A? = nil,
-        azerbaijani:A? = nil,
-        bambara:A? = nil,
-        bashkir:A? = nil,
-        basque:A? = nil,
-        belarusian:A? = nil,
         bengali:A? = nil,
-        bihari:A? = nil,
-        bislama:A? = nil,
-        bosnian:A? = nil,
-        breton:A? = nil,
-        bulgarian:A? = nil,
-        burmese:A? = nil,
-        catalan:A? = nil,
-        caEnglish:A? = nil,
-        chamorro:A? = nil,
-        chechen:A? = nil,
         chinese:A? = nil,
-        chuvash:A? = nil,
-        cornish:A? = nil,
-        corsican:A? = nil,
-        cree:A? = nil,
-        croatian:A? = nil,
-        czech:A? = nil,
         danish:A? = nil,
-        dzongkha:A? = nil,
-        esperanto:A? = nil,
-        estonian:A? = nil,
-        ewe:A? = nil,
-        faroese:A? = nil,
-        fijian:A? = nil,
-        finnish:A? = nil,
+        dutch:A? = nil,
+        english:A,
         french:A? = nil,
-        galician:A? = nil,
-        gaelicScottish:A? = nil,
-        georgian:A? = nil,
         german:A? = nil,
-        greek:A? = nil,
-        guarani:A? = nil,
-        gujarati:A? = nil,
-        haitianCreole:A? = nil,
-        hausa:A? = nil,
-        hebrew:A? = nil,
-        herero:A? = nil,
+        greenlandic:A? = nil,
         hindi:A? = nil,
-        hiriMotu:A? = nil,
-        hungarian:A? = nil,
-        icelandic:A? = nil,
-        ido:A? = nil,
-        igbo:A? = nil,
         indonesian:A? = nil,
-        interlingua:A? = nil,
-        interlingue:A? = nil,
-        inuktitut:A? = nil,
-        inupiak:A? = nil,
         irish:A? = nil,
         italian:A? = nil,
         japanese:A? = nil,
         javanese:A? = nil,
-        kannada:A? = nil,
-        kanuri:A? = nil,
-        kashmiri:A? = nil,
-        kazakh:A? = nil,
-        khmer:A? = nil,
-        kikuyu:A? = nil,
-        kinyarwanda:A? = nil,
-        kirundi:A? = nil,
-        kyrgyz:A? = nil,
-        komi:A? = nil,
-        kongo:A? = nil,
         korean:A? = nil,
-        kurdish:A? = nil,
-        kwanyama:A? = nil,
-        lao:A? = nil,
-        latin:A? = nil,
-        latvian:A? = nil,
-        limburgish:A? = nil,
-        lingala:A? = nil,
-        lithuanian:A? = nil,
-        lugaKatanga:A? = nil,
-        luxembourgish:A? = nil,
-        manx:A? = nil,
-        macedonian:A? = nil,
-        malagasy:A? = nil,
-        malay:A? = nil,
-        malayalam:A? = nil,
-        maltese:A? = nil,
-        maori:A? = nil,
-        marathi:A? = nil,
-        marshallese:A? = nil,
-        moldavian:A? = nil,
-        mongolian:A? = nil,
-        nauru:A? = nil,
-        navajo:A? = nil,
-        ndonga:A? = nil,
-        northernNdebele:A? = nil,
-        nepali:A? = nil,
-        norwegian:A? = nil,
-        norwegianBokmål:A? = nil,
-        norwegianNynorsk:A? = nil,
-        occitan:A? = nil,
-        ojibwe:A? = nil,
-        oriya:A? = nil,
-        oromo:A? = nil,
-        ossetian:A? = nil,
-        pāli:A? = nil,
-        persian:A? = nil,
         polish:A? = nil,
         portuguese:A? = nil,
-        punjabi:A? = nil,
-        quechua:A? = nil,
-        romansh:A? = nil,
         romanian:A? = nil,
         russian:A? = nil,
-        sami:A? = nil,
-        samoan:A? = nil,
-        sango:A? = nil,
-        sanskrit:A? = nil,
-        serbian:A? = nil,
-        serboCroatian:A? = nil,
-        sesotho:A? = nil,
-        setswana:A? = nil,
-        shona:A? = nil,
-        sindhi:A? = nil,
-        sinhalese:A? = nil,
         slovak:A? = nil,
         slovenian:A? = nil,
-        somali:A? = nil,
-        southernNdebele:A? = nil,
         spanish:A? = nil,
-        sundanese:A? = nil,
-        swahili:A? = nil,
-        swati:A? = nil,
         swedish:A? = nil,
-        tagalog:A? = nil,
-        tahitian:A? = nil,
-        tajik:A? = nil,
-        tamil:A? = nil,
-        tatar:A? = nil,
-        telugu:A? = nil,
-        thai:A? = nil,
-        tibetan:A? = nil,
-        tigrinya:A? = nil,
-        tonga:A? = nil,
-        tsonga:A? = nil,
-        turkish:A? = nil,
-        turkmen:A? = nil,
-        twi:A? = nil,
-        uyghur:A? = nil,
-        ukEnglish:A? = nil,
-        ukrainian:A? = nil,
-        urdu:A? = nil,
-        usEnglish:A? = nil,
-        uzbek:A? = nil,
-        venda:A? = nil,
-        vietnamese:A? = nil,
-        volapük:A? = nil,
-        wallon:A? = nil,
-        welsh:A? = nil,
-        wolof:A? = nil,
-        westernFrisian:A? = nil,
-        xhosa:A? = nil,
-        yoruba:A? = nil,
-        zulu:A? = nil
+        turkish:A? = nil
     ) {
         self.english = english
         self.dutch = dutch ?? english
-//        self.arabic = arabic ?? english
-//        self.bengali = bengali ?? english
-//        self.chinese = chinese ?? english
-//        self.danish = danish ?? english
-//        self.french = french ?? english
-//        self.german = german ?? english
-//        self.hindi = hindi ?? english
-//        self.irish = irish ?? english
-//        self.italian = italian ?? english
-//        self.japanese = japanese ?? english
-//        self.javanese = javanese ?? indonesian ?? english
-//        self.korean = korean ?? english
-//        self.polish = polish ?? english
-//        self.portuguese = portuguese ?? english
-//        self.romanian = romanian ?? russian ?? english
-//        self.russian = russian ?? english
-//        self.slovak = slovak ?? german ?? english
-//        self.slovenian = slovenian ?? english
-//        self.spanish = spanish ?? english
-//        self.swedish = swedish ?? english
-//        self.turkish = turkish ?? english
+        self.arabic = arabic ?? english
+        self.bengali = bengali ?? english
+        self.chinese = chinese ?? english
+        self.danish = danish ?? english
+        self.french = french ?? english
+        self.german = german ?? english
+        self.hindi = hindi ?? english
+        self.indonesian = indonesian ?? english
+        self.irish = irish ?? english
+        self.italian = italian ?? english
+        self.japanese = japanese ?? english
+        self.javanese = javanese ?? indonesian ?? english
+        self.korean = korean ?? english
+        self.polish = polish ?? english
+        self.portuguese = portuguese ?? english
+        self.romanian = romanian ?? russian ?? english
+        self.russian = russian ?? english
+        self.slovak = slovak ?? german ?? english
+        self.slovenian = slovenian ?? english
+        self.spanish = spanish ?? english
+        self.swedish = swedish ?? english
+        self.turkish = turkish ?? english
 //        self.abkhazian = abkhazian ?? russian ?? georgian ?? english
 //        self.afar = afar ?? amharic ?? oromo ?? somali ?? tigrinya ?? english
 //        self.afrikaans = afrikaans ?? dutch ?? english
@@ -1256,11 +1170,11 @@ public extension Translated {
 
 extension Translated where A == String {
     static func +(lhs: Self, rhs: String) -> Self {
-        return Translated<String>.init(english: lhs(.english) + rhs, dutch: lhs(.dutch) + rhs)
+        return Translated<String>.init(dutch: lhs(.dutch) + rhs, english: lhs(.english) + rhs)
     }
     
     static func +(lhs: String, rhs: Self) -> Self {
-        return Translated<String>.init(english: lhs + rhs(.english), dutch: lhs + rhs(.dutch))
+        return Translated<String>.init(dutch: lhs + rhs(.dutch), english: lhs + rhs(.english))
     }
 }
 
@@ -1279,22 +1193,21 @@ public extension Translated where A == String {
     var any:Self {
         .init(
             
+            dutch: "een \(dutch)",
             english: {
                 if let first = english.first {
                     if Set<String>.consonents.contains(String(first)) {return "an \(english)"}
                     else { return "a \(english)" }
                 }
                 return english
-            }(),
-            dutch: "een \(dutch)"
+            }()
         )
     }
     
     var the:Self {
         .init(
             
-            english: "the \(english)",
-            dutch: "de \(dutch)"
+            dutch: "de \(dutch)", english: "the \(english)"
         )
     }
 }
@@ -1307,14 +1220,14 @@ extension Set where Element == String {
 
 
 public func +(_ lhs:Translated<String>, _ rhs:Translated<String>)->Translated<String> {
-    return Translated<String>.init(english: lhs(in: .english) + rhs(in: .english), dutch: lhs(in: .dutch) + rhs(in: .dutch))
+    return Translated<String>.init(dutch: lhs(in: .dutch) + rhs(in: .dutch), english: lhs(in: .english) + rhs(in: .english))
 }
 
-extension Translated:CustomStringConvertible where A == String {
-    public var description: String {
-        self.callAsFunction(language: .english)
-    }
-}
+//extension Translated:CustomStringConvertible where A == String {
+//    public var description: String {
+//        self.callAsFunction(language: .english)
+//    }
+//}
 
 extension Translated: ExpressibleByUnicodeScalarLiteral where A == String {
     public init(unicodeScalarLiteral value: String) {
@@ -1358,11 +1271,14 @@ public extension Translated where A == String {
         self.map{ $0.uppercased(with: locale) }
     }
     
+    @available(*, deprecated, message: "Renamed to capitalizingFirstLetter()")
     func capitalizedFirstLetter()->Self {
+        self.capitalizingFirstLetter()
+    }
+    
+    func capitalizingFirstLetter()->Self {
+        
         self.map { $0.prefix(1).capitalized + $0.dropFirst() }
-        
-        
-//        .init(english: self.english.prefix(1).capitalized + self.english.dropFirst(), dutch: self.dutch.prefix(1).capitalized + self.dutch.dropFirst())
     }
     
     func firstLetter(_ closure:(String)->String)->Self {
@@ -1373,5 +1289,15 @@ public extension Translated where A == String {
     
     func lowercased(with locale: Locale? = nil)->Self {
         self.map { $0.lowercased(with: locale) }
+    }
+}
+
+public extension Translated {
+    @available(*, deprecated, message: "Dutch should precede English")
+    init(
+        english:A,
+        dutch: A
+    ){
+        self.init(dutch: dutch, english: english)
     }
 }

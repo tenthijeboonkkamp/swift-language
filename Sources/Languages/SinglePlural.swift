@@ -19,7 +19,7 @@ public struct SinglePlural<A> {
         }
     }
     
-    public let preferred:Variant
+    public var preferred:Variant
     
 
     public var enkelvoud:A { single }
@@ -100,11 +100,14 @@ public struct SinglePlural<A> {
     }
 }
 
+
+
+
 public extension SinglePlural where A == Translated<String> {
-    static let parties:Self = .init(single: .init(english: "Party", dutch: "Partij"), plural: .init(english: "Parties", dutch: "Partijen"))
+    static let parties:Self = .init(single: .init(dutch: "Partij", english: "Party"), plural: .init(dutch: "Partijen", english: "Parties"))
     
     init(english:String, dutch:String? = nil){
-        self = .init(Translated<String>.init(english: english, dutch: dutch))
+        self = .init(Translated<String>.init(dutch: dutch, english: english))
     }
     
     func callAsFunction(_ variant:Variant = .single, _ language:Languages.Language)->String {
@@ -172,3 +175,4 @@ public extension SinglePlural where A == Translated<String> {
 
 extension SinglePlural:Equatable where A:Equatable {}
 extension SinglePlural:Hashable where A:Hashable {}
+extension SinglePlural:Codable where A:Codable {}

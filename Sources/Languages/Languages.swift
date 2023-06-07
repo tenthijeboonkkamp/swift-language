@@ -14,6 +14,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
     case french = "fr"
     case german = "de"
     case hindi = "hi"
+    case indonesian = "id"
     case irish = "ga"
     case italian = "it"
     case japanese = "ja"
@@ -94,7 +95,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 //    case icelandic = "is"
 //    case ido = "io"
 //    case igbo = "ig"
-//    case indonesian = "id"
+    
 //    case interlingua = "ia"
 //    case interlingue = "ie"
 //    case inuktitut = "iu"
@@ -216,7 +217,7 @@ public enum Language: String, CaseIterable, Hashable, Equatable, Codable {
 
 public extension Language {
     
-    static let title:SinglePlural<Translated<String>> = .init(single: .init(english: "Language", dutch: "Taal"), plural: .init(english: "Languages", dutch: "Talen"))
+    static let title:SinglePlural<Translated<String>> = .init(single: .init(dutch: "Taal", english: "Language"), plural: .init(dutch: "Talen", english: "Languages"))
     
     enum LabelLength:String, Hashable, Equatable, Codable {
         case short, normal
@@ -227,15 +228,50 @@ public extension Language {
     
     func label(_ length:LabelLength = .normal)->Translated<String> {
         
+        
+        
+        
         switch (self, length) {
-//        case (.dutch, .normal): return .init(english: "Dutch", dutch: "Nederlands")
-//        case (.dutch, .short): return .init(english: "nl", dutch: "nl")
-//        case (.english, .normal): return .init(english: "English", dutch: "Engels")
-//        case (.english, .short): return .init(english: "en", dutch: "en")
-//        case (.french, .normal): return .init(english: "French", dutch: "Frans", french: "Francais")
-//        case (.french, .short): return .init(english: "fr", dutch: "fr")
-//        case (.german, .normal): return .init(english: "German", german: "Deutsch")
-//        case (.german, .short): return .init(english: "ge", dutch: "de")
+        case (.dutch, .normal): return .init(
+            dutch: "Nederlands",
+            english: "Dutch",
+            french: "Néerlandais",
+            german: "Niederländisch",
+            spanish: "Holandés"
+        )
+        case (.dutch, .short): return .init(self.rawValue)
+        case (.english, .normal): return .init(
+            dutch: "Engels",
+            english: "English",
+            french: "Anglais",
+            german: "Englisch",
+            spanish: "Inglés"
+        )
+        case (.english, .short): return .init(self.rawValue)
+        case (.french, .normal): return .init(
+            dutch: "Frans",
+            english: "French",
+            french: "Français",
+            german: "Französisch",
+            spanish: "Francés"
+        )
+        case (.french, .short): return .init(self.rawValue)
+        case (.german, .normal): return .init(
+            dutch: "Duits",
+            english: "German",
+            french: "Allemand",
+            german: "Deutsch",
+            spanish: "Alemán"
+        )
+        case (.german, .short): return .init(self.rawValue)
+        case (.spanish, .normal): return .init(
+            dutch: "Spaans",
+            english: "Spanish",
+            french: "Espagnol",
+            german: "Spanisch",
+            spanish: "Espagnol"
+        )
+        case (.spanish, .short): return .init(self.rawValue)
 //        case (.italian, .normal): return .init(english: "Italian", italian: "Italiana")
 //        case (.italian, .short): return .init("it")
 //        case (.spanish, .normal): return .init(english: "Spanish", spanish: "Español")
@@ -263,6 +299,14 @@ public extension Language {
     }
 }
 
+public extension [Language] {
+    func sort()->Self {
+        self.sorted { language1, language2 in
+            language1.label()(language1) < language2.label()(language2)
+        }
+    }
+}
+
 public let all:[Language] = Language.allCases
 
 
@@ -277,19 +321,25 @@ public extension Locale {
 
 public extension String {
     static func translated(
-        english:String,
         dutch:String? = nil,
+        english:String,
+        french:String? = nil,
+        german:String? = nil,
+        spanish:String? = nil,
         language:Languages.Language
     ) -> String {
-        Translated<String>.init(english: english, dutch: dutch)(language)
+        Translated<String>.init(dutch: dutch, english: english, french: french, german: german, spanish:spanish)(language)
     }
     
     init(
-        english:String,
         dutch:String? = nil,
+        english:String,
+        french:String? = nil,
+        german:String? = nil,
+        spanish:String? = nil,
         language:Languages.Language
     ){
-        self = Translated<String>.init(english: english, dutch: dutch)(language)
+        self = Translated<String>.init(dutch: dutch, english: english, french: french, german: german, spanish:spanish)(language)
     }
 }
 

@@ -11,15 +11,18 @@ public protocol HasLanguage {
     var language:Languages.Language { get }
 }
 
-extension Language:HasLanguage {
-    public var language: Language { self }
-}
+//extension Language:HasLanguage {
+//    public var language: Language { self }
+//}
 
 extension Languages.Language {
     public var locale:Locale {
         switch self {
         case .english: return .init(identifier: "US_us")
         case .dutch: return .init(identifier: "NL_nl")
+        case .spanish: return .init(identifier: "ES_es")
+        case .german: return .init(identifier: "DE_de")
+        case .french: return .init(identifier: "FR_fr")
         default: fatalError()
         }
     }
@@ -34,9 +37,14 @@ public extension Languages.Language {
         if let language = Locale.preferredLanguages.first {
             switch language {
             case "en", "en-US", "en-UK": return .english
+            case "fr", "fr-FR": return .french
+            case "de", "de-DE": return .german
+            case "es", "es-ES": return .spanish
             case "nl-NL", "nl": return .dutch
             default: return .english
             }
+            
+            
         } else {
             return .english
         }
