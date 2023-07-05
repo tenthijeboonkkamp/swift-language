@@ -1223,11 +1223,11 @@ public func +(_ lhs:Translated<String>, _ rhs:Translated<String>)->Translated<St
     return Translated<String>.init(dutch: lhs(in: .dutch) + rhs(in: .dutch), english: lhs(in: .english) + rhs(in: .english))
 }
 
-//extension Translated:CustomStringConvertible where A == String {
-//    public var description: String {
-//        self.callAsFunction(language: .english)
-//    }
-//}
+extension Translated:CustomStringConvertible where A == String {
+    public var description: String {
+        self.callAsFunction(language: .english)
+    }
+}
 
 extension Translated: ExpressibleByUnicodeScalarLiteral where A == String {
     public init(unicodeScalarLiteral value: String) {

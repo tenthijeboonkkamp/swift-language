@@ -23,7 +23,9 @@ extension Languages.Language {
         case .spanish: return .init(identifier: "ES_es")
         case .german: return .init(identifier: "DE_de")
         case .french: return .init(identifier: "FR_fr")
-        default: fatalError()
+        default:
+            print("defaulted language locale of \(self). This requires manual updating")
+            return .init(identifier: "US_us")
         }
     }
 }
