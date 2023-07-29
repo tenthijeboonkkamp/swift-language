@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "352D14DA-271D-4C71-A21B-5FB0DF96B584",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Language.Client.Tests",
+        "name" : "Language.Client.Tests"
+      }
+    }
+  ],
+  "version" : 1
+}
