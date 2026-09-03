@@ -2,37 +2,6 @@
 
 import PackageDescription
 
-extension String {
-    static let translatingPlatform: Self = "Translating Platform"
-    static let language: Self = "Language"
-    static let singlePlural: Self = "Single Plural"
-    static let translated: Self = "Translated"
-    static let translatedString: Self = "Translated String"
-    static let translating: Self = "Translating"
-    static let translations: Self = "Translations"
-    static let translatingTestSupport: Self = "Translating Test Support"
-    var tests: Self { self + " Tests" }
-}
-
-extension Target.Dependency {
-    static var translatingPlatform: Self { .target(name: .translatingPlatform) }
-    static var language: Self { .target(name: .language) }
-    static var singlePlural: Self { .target(name: .singlePlural) }
-    static var translated: Self { .target(name: .translated) }
-    static var translatedString: Self { .target(name: .translatedString) }
-    static var translating: Self { .target(name: .translating) }
-    static var translations: Self { .target(name: .translations) }
-    static var translatingTestSupport: Self { .target(name: .translatingTestSupport) }
-}
-
-extension Target.Dependency {
-    static var bcp47: Self { .product(name: "BCP 47", package: "swift-bcp-47") }
-    static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
-    static var dependenciesTestSupport: Self {
-        .product(name: "Dependencies Test Support", package: "swift-dependencies")
-    }
-}
-
 let package = Package(
     name: "swift-translating",
     platforms: [
@@ -43,14 +12,14 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        .library(name: .translating, targets: [.translating]),
-        .library(name: .language, targets: [.language]),
-        .library(name: .singlePlural, targets: [.singlePlural]),
-        .library(name: .translated, targets: [.translated]),
-        .library(name: .translatedString, targets: [.translatedString]),
-        .library(name: .translatingPlatform, targets: [.translatingPlatform]),
-        .library(name: .translatingTestSupport, targets: [.translatingTestSupport]),
-        .library(name: .translations, targets: [.translations]),
+        .library(name: "Translating", targets: ["Translating"]),
+        .library(name: "Language", targets: ["Language"]),
+        .library(name: "Single Plural", targets: ["Single Plural"]),
+        .library(name: "Translated", targets: ["Translated"]),
+        .library(name: "Translated String", targets: ["Translated String"]),
+        .library(name: "Translating Platform", targets: ["Translating Platform"]),
+        .library(name: "Translating Test Support", targets: ["Translating Test Support"]),
+        .library(name: "Translations", targets: ["Translations"]),
     ],
     dependencies: [
         .package(url: "https://github.com/swift-ietf/swift-bcp-47.git", branch: "main"),
@@ -62,107 +31,107 @@ let package = Package(
     targets: [
 
         .target(
-            name: .translating,
+            name: "Translating",
             dependencies: [
-                .language,
-                .singlePlural,
-                .translated,
-                .translatedString,
+                .target(name: "Language"),
+                .target(name: "Single Plural"),
+                .target(name: "Translated"),
+                .target(name: "Translated String"),
             ]
         ),
 
         .target(
-            name: .language,
+            name: "Language",
             dependencies: [
-                .bcp47
+                .product(name: "BCP 47", package: "swift-bcp-47")
             ]
         ),
         .testTarget(
-            name: .language.tests,
+            name: "Language Tests",
             dependencies: [
-                .language,
-                .dependenciesTestSupport,
+                .target(name: "Language"),
+                .product(name: "Dependencies Test Support", package: "swift-dependencies"),
             ]
         ),
 
         .target(
-            name: .singlePlural,
+            name: "Single Plural",
             dependencies: [
-                .language,
-                .translated,
-                .translatedString,
+                .target(name: "Language"),
+                .target(name: "Translated"),
+                .target(name: "Translated String"),
             ]
         ),
         .testTarget(
-            name: .singlePlural.tests,
+            name: "Single Plural Tests",
             dependencies: [
-                .singlePlural,
-                .dependenciesTestSupport,
+                .target(name: "Single Plural"),
+                .product(name: "Dependencies Test Support", package: "swift-dependencies"),
             ]
         ),
 
         .target(
-            name: .translated,
+            name: "Translated",
             dependencies: [
-                .language
+                .target(name: "Language")
             ]
         ),
         .testTarget(
-            name: .translated.tests,
+            name: "Translated Tests",
             dependencies: [
-                .translated,
-                .dependenciesTestSupport,
+                .target(name: "Translated"),
+                .product(name: "Dependencies Test Support", package: "swift-dependencies"),
             ]
         ),
 
         .target(
-            name: .translatedString,
+            name: "Translated String",
             dependencies: [
-                .translated
+                .target(name: "Translated")
             ]
         ),
         .testTarget(
-            name: .translatedString.tests,
+            name: "Translated String Tests",
             dependencies: [
-                .translatedString,
-                .translatingPlatform,
-                .dependenciesTestSupport,
+                .target(name: "Translated String"),
+                .target(name: "Translating Platform"),
+                .product(name: "Dependencies Test Support", package: "swift-dependencies"),
             ]
         ),
 
         .target(
-            name: .translatingPlatform,
+            name: "Translating Platform",
             dependencies: [
-                .dependencies,
-                .language,
-                .singlePlural,
-                .translated,
-                .translatedString,
-                .translating,
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .target(name: "Language"),
+                .target(name: "Single Plural"),
+                .target(name: "Translated"),
+                .target(name: "Translated String"),
+                .target(name: "Translating"),
             ]
         ),
         .testTarget(
-            name: .translatingPlatform.tests,
+            name: "Translating Platform Tests",
             dependencies: [
-                .translatingPlatform,
-                .dependenciesTestSupport,
-                .language,
+                .target(name: "Translating Platform"),
+                .product(name: "Dependencies Test Support", package: "swift-dependencies"),
+                .target(name: "Language"),
             ]
         ),
 
-        .target(name: .translatingTestSupport),
+        .target(name: "Translating Test Support"),
 
         .target(
-            name: .translations,
+            name: "Translations",
             dependencies: [
-                .translating
+                .target(name: "Translating")
             ]
         ),
         .testTarget(
-            name: .translations.tests,
+            name: "Translations Tests",
             dependencies: [
-                .translations,
-                .dependenciesTestSupport,
+                .target(name: "Translations"),
+                .product(name: "Dependencies Test Support", package: "swift-dependencies"),
             ]
         ),
     ],
